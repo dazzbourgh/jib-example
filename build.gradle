@@ -20,5 +20,9 @@ dependencies {
 }
 
 jib {
+	to {
+		image = 'dazzbourgh/jib-example'
+		tags = ['latest']
+	}
 	allowInsecureRegistries = true
 }
