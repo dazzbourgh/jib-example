@@ -9,13 +9,13 @@ pipeline {
         }
       }
       steps {
-        sh 'gradle build'
+        sh 'gradle jib'
       }
     }
     stage('Deploy') {
       agent any
       steps {
-        sh 'docker run dazzbourgh/jib-example:latest'
+        sh 'docker run -d dazzbourgh/jib-example:latest'
       }
     }
   }
