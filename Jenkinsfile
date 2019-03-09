@@ -13,6 +13,7 @@ pipeline {
       }
     }
     stage('Deploy') {
+      agent any
       steps {
         sh 'docker run dazzbourgh/jib-example:latest'
       }
