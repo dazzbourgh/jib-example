@@ -8,7 +8,8 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        sh 'docker run -d dazzbourgh/jib-example:latest'
+        sh 'docker stop jib-example'
+        sh 'docker run -d -p 1489:1489 --name jib-example dazzbourgh/jib-example:latest'
       }
     }
   }
