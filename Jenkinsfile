@@ -7,8 +7,8 @@ pipeline {
       }
     }
     stage('Deploy') {
-      git url: 'https://github.com/dazzbourgh/jib-example-compose.git'
       steps {
+        git url: 'https://github.com/dazzbourgh/jib-example-compose.git'
         sh 'docker-compose up -d'
       }
     }
