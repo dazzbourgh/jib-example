@@ -7,9 +7,11 @@ pipeline {
       }
     }
     stage('Deploy') {
-      steps {
-        git url: 'https://github.com/dazzbourgh/jib-example-compose.git'
-        sh 'docker-compose up -d'
+      withEnv(["PATH=$PATH:/usr/local/bin"]) {
+        steps {
+          git url: 'https://github.com/dazzbourgh/jib-example-compose.git'
+          sh 'docker-compose up -d'
+        }
       }
     }
   }
