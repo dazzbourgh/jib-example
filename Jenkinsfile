@@ -4,7 +4,7 @@ pipeline {
   }
   agent any
   stages {
-    stage('Build & Deploy app') {
+    stage('Check branch') {
       when { anyOf { branch 'master'; expression { env.CHANGE_ID != null } } }
       stages {
         stage('Build') {
@@ -28,9 +28,7 @@ pipeline {
         stage('Create review environment') {
           when { expression { env.CHANGE_ID != null } }
           steps {
-            sh "echo '${env.CHANGE_ID}'"
-            sh "echo 'this is a pull request'"
-            //TODO: handle pull requests
+            pullRequest.comment('A review app is available at port ...')
           }
         }
       }
