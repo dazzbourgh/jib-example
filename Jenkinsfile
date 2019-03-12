@@ -23,7 +23,7 @@ pipeline {
       }
     }
     stage('Create review environment') {
-      when { expression { env.CHANGE_ID != '' } }
+      when { expression { env.CHANGE_ID != null } }
       steps {
         sh "echo '${env.CHANGE_ID}'"
         sh "echo 'this is a pull request'"
