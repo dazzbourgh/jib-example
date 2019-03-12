@@ -25,7 +25,8 @@ pipeline {
     stage('Create review environment') {
       when { expression { env.CHANGE_ID != '' } }
       steps {
-        sh 'this is a pull request'
+        sh "echo '${env.CHANGE_ID}'"
+        sh "echo 'this is a pull request'"
         //TODO: handle pull requests
       }
     }
