@@ -5,7 +5,7 @@ pipeline {
   agent any
   stages {
     stage('Build & Deploy app') {
-      when { branch 'master' || expression { env.CHANGE_ID != null } }
+      when { anyOf { branch 'master'; expression { env.CHANGE_ID != null } } }
       stages {
         stage('Build') {
           steps {
