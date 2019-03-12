@@ -28,7 +28,9 @@ pipeline {
         stage('Create review environment') {
           when { expression { env.CHANGE_ID != null } }
           steps {
-            pullRequest.comment('A review app is available at port ...')
+            script {
+              pullRequest.comment('A review app is available at port ...')
+            }
           }
         }
       }
