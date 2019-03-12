@@ -17,13 +17,17 @@ pipeline {
     }
     stage('Update port') {
       when { branch 'master' }
-      sh 'docker service update --publish-rm 1489 jib-example_jib-example'
-      sh 'docker service update --publish-add published=1489,target=1489 jib-example_jib-example'
+      steps {
+        sh 'docker service update --publish-rm 1489 jib-example_jib-example'
+        sh 'docker service update --publish-add published=1489,target=1489 jib-example_jib-example'
+      }
     }
     stage('Create review environment') {
       when { expression { env.CHANGE_ID != '' } }
-      sh 'this is a pull request'
-      //TODO: handle pull requests
+      steps {
+        sh 'this is a pull request'
+        //TODO: handle pull requests
+      }
     }
   }
 }
