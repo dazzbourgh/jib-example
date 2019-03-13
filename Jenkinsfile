@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 pipeline {
   environment {
     PATH = "$PATH:/usr/local/bin"
@@ -15,14 +17,14 @@ pipeline {
         stage('Deploy') {
           steps {
             git url: 'https://github.com/dazzbourgh/jib-example-compose.git'
-            sh "docker stack deploy --compose-file docker-compose.yml jib-example${env.CHANGE_ID}"
+            sh "docker stack deploy --compose-file docker-compose.yml jib-example-${env.BRANCH_NAME}"
           }
         }
         stage('Update port') {
           when { branch 'master' }
           steps {
             sh 'docker service update --publish-rm 1489 jib-example_jib-example'
-            sh 'docker service update --publish-add published=1489,target=1489 jib-example_jib-example'
+            sh 'docker service update --publish-add published=1489,target=1489 jib-example-master_jib-example'
           }
         }
         stage('Create review environment') {
