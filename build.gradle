@@ -1,7 +1,7 @@
 plugins {
-	id 'org.springframework.boot' version '2.1.3.RELEASE'
-	id 'java'
-	id 'com.google.cloud.tools.jib' version '1.0.1'
+    id 'org.springframework.boot' version '2.1.3.RELEASE'
+    id 'java'
+    id 'com.google.cloud.tools.jib' version '1.0.1'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -11,18 +11,29 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+task setBranch(type: Exec) {
+    project.ext.jibBranch = branch()
 }
 
 jib {
-	to {
-		image = 'dazzbourgh/jib-example'
-		tags = ['latest']
-	}
-	allowInsecureRegistries = true
+    to {
+        image = 'dazzbourgh/jib-example'
+        tags = [project.ext.jibBranch]
+    }
+    allowInsecureRegistries = true
+}
+
+build.dependsOn setBranch
+
+def branch() {
+    def workingBranch = "git rev-parse --abbrev-ref HEAD".execute().text
+    return workingBranch.toString().trim()
 }
