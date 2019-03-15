@@ -3,6 +3,7 @@
 pipeline {
   environment {
     PATH = "$PATH:/usr/local/bin"
+    JIB_BRANCH = "${env.BRANCH_NAME}"
   }
   agent any
   stages {
@@ -17,7 +18,7 @@ pipeline {
         stage('Deploy') {
           steps {
             git url: 'https://github.com/dazzbourgh/jib-example-compose.git'
-            sh "docker stack deploy --compose-file docker-compose.yml jib-example-${env.BRANCH_NAME}"
+            sh "docker stack deploy --compose-file docker-compose.yml jib-example-${JIB_BRANCH}"
           }
         }
         stage('Update port') {
@@ -31,7 +32,7 @@ pipeline {
           when { expression { env.CHANGE_ID != null } }
           steps {
             script {
-              pullRequest.comment('A review app is available at port ...')
+              pullRequest.comment("A review app is available at http://94.250.249.86/jib-example-${JIB_BRANCH}")
             }
           }
         }
