@@ -1,13 +1,12 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Hello</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../static/css/header.css" th:href="@{/static/css/header.css}" rel="stylesheet" />
 </head>
-<body>
-<div th:class="'center'">
-    <div><h1 th:text="'Hello'" th:class="'header'"></h1></div>
+<body th:style="'background-color: rgba(255, 220, 60, 0.96);'">
+<div th:style="'margin: auto;display: flex;justify-content: center;align-items: center;height: 90vh;'">
+    <div><h1 th:text="${caption}" th:style="'text-align: center;font-size: 1000%;font-family: monospace;'"></h1></div>
 </div>
 </body>
 </html>
